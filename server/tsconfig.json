@@ -6,5 +6,7 @@
     "rootDir": "./",
     "strict": true,
     "esModuleInterop": true,
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
   }
 }
