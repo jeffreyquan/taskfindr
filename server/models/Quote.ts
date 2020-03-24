@@ -16,6 +16,9 @@ export class Quote {
   @Column()
   price: number;
 
+  @Column()
+  accepted: boolean;
+
   @ManyToOne(type => User, user => user.quotes)
   user: User;
 

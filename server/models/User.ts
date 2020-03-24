@@ -2,12 +2,14 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToMany
+  OneToMany,
+  AfterLoad
 } from 'typeorm';
+import bcrypt from 'bcrypt';
 import { Job } from './Job';
 import { Quote } from './Quote';
 
-export enum UserType {
+export enum MembershipType {
   CUSTOMER = "customer",
   BUSINESS = "business",
   GHOST = "ghost"
@@ -15,7 +17,6 @@ export enum UserType {
 
 @Entity()
 export class User {
-
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -25,16 +26,29 @@ export class User {
   @Column()
   email: string;
 
-  @Column({
-    type: 'enum',
-    enum: UserType,
-    default: UserType.GHOST
-  })
-  membership: UserType;
+  @Column()
+  password: string;
 
-  @OneToMany(type => Quote, quote => quote.user )
+  @Column({
+    type: "enum",
+    enum: MembershipType,
+    default: MembershipType.GHOST
+  })
+  membership: MembershipType;
+
+  async comparePassword(attempt: string): Promise<boolean> {
+    return await bcrypt.compare(attempt, this.password);
+  }
+
+  @OneToMany(
+    type => Quote,
+    quote => quote.user
+  )
   quotes: Quote[];
 
-  @OneToMany(type => Job, job => job.user)
+  @OneToMany(
+    type => Job,
+    job => job.user
+  )
   jobs: Job[];
 }

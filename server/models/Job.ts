@@ -16,6 +16,10 @@ export class Job {
   id: number;
 
   @Column()
+  description: string;
+
+  @Column()
+  active: boolean;
 
   @ManyToOne(type => User, user => user.jobs)
   user: User
