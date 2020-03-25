@@ -5,11 +5,11 @@ import { Strategy } from 'passport-local';
 import 'reflect-metadata';
 import databaseService from './services/DatabaseService';
 import userRoutes from './routes/userRoutes';
-import initializePassport from './config/passportConfig';
 import session from 'express-session';
 import { getCustomRepository } from 'typeorm';
 import { UserRepository } from './repositories/UserRepository';
 import { User } from './models/User';
+import { DEFAULT_COOKIE_EXPIRY } from './config/sessionConfig';
 
 const app = express();
 
@@ -58,8 +58,10 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
   secret: 'S3cret',
-  resave: false,
-  saveUninitialized: false,
+  cookie: {
+    maxAge: DEFAULT_COOKIE_EXPIRY,
+    secure: false
+  }
 }))
 
 app.use(passport.initialize());
