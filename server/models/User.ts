@@ -3,7 +3,6 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
-  AfterLoad
 } from 'typeorm';
 import bcrypt from 'bcrypt';
 import { Job } from './Job';
