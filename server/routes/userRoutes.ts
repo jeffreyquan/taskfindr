@@ -19,7 +19,7 @@ router.post('/register', async (req, res) => {
 
   const user = await userRepository.createUser(name, email, password, membership);
 
-  return res.status(200).send(user);
+  return res.status(200).send({ message: 'Successfully resistered' });
 })
 
 router.post('/login', (req, res) => {
