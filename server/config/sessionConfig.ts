@@ -1,0 +1,1 @@
+export const DEFAULT_COOKIE_EXPIRY = 5 * 60 * 1000; // minutes x seconds x milliseconds
